@@ -173,7 +173,7 @@
     /* Error message style */
     .message.error {
         background-color: #f44336;
-        color: white;
+        color: black;
     }
 
     /* Animation for showing and hiding the message */
@@ -331,24 +331,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="section" id="update-student">
             <h2>Update Student</h2>
-            <form action="update_student.php" method="POST">
-                <input type="text" name="roll_no" placeholder="Roll Number" required>
-                <input type="text" name="name" placeholder="Updated Name">
-                <input type="text" name="class" placeholder="Updated Class">
-                <input type="text" name="email" placeholder="Updated Email">
+            <form action="" method="POST">
+                <input type="number" name="update_roll_no" placeholder="Roll Number" required>
+                <input type="text" name="update_name" placeholder="Updated Name">
+                <input type="number" name="update_class" placeholder="Updated Class">
+                <input type="text" name="update_email" placeholder="Updated Email">
                 <button type="submit">Update Student</button>
             </form>
         </div>
 
         <div class="section" id="delete-student">
             <h2>Delete Student</h2>
-            <form action="delete_student.php" method="POST">
-                <input type="text" name="roll_no" placeholder="Roll Number" required>
+            <form action="" method="POST">
+                <input type="text" name="dlroll_no" placeholder="Roll Number" required>
                 <button type="submit">Delete Student</button>
             </form>
         </div>
     </div>
+    <?php 
+include "./connection.php";
+$dlroll_no = isset($_POST['dlroll_no']) ? mysqli_real_escape_string($connection, $_POST['dlroll_no']) : null;
+             if(!empty($dlroll_no)){
+                 $delete = "DELETE FROM students WHERE roll_no = '$dlroll_no'"    ;
+$dlexc = mysqli_query($connection , $delete);
+if($dlexc){
+echo '1';
+}
+}
+                
 
+?>
     <script>
     // Tab Navigation Script
     const tabs = document.querySelectorAll('.tab');
