@@ -174,6 +174,7 @@
     .message.error {
         background-color: #f44336;
         color: black;
+        display: none;
     }
 
     /* Animation for showing and hiding the message */
@@ -339,7 +340,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit">Update Student</button>
             </form>
         </div>
+        <?php 
+        include "./connection.php";
+ $update_roll_no = isset($_POST['update_roll_no']) ? mysqli_real_escape_string($connection, $_POST['update_roll_no']) : null;
+    $update_name = isset($_POST['update_name']) ? mysqli_real_escape_string($connection, $_POST['update_name']) : null;
+    $update_class = isset($_POST['update_class']) ? mysqli_real_escape_string($connection, $_POST['update_class']) : null;
+    $update_email = isset($_POST['update_email']) ? mysqli_real_escape_string($connection, $_POST['update_email']) : null;
 
+if(!empty($update_roll_no) &&  !empty($update_name) && !empty($update_class) && !empty($update_email)){
+
+    $query_update  = "UPDATE students SET Name = '{$update_name}' , Class = '{$update_class}' , Email = '{$update_email}' WHERE roll_no = '$update_roll_no'";
+    $exctu = mysqli_query($connection,$query_update);
+
+}    
+
+
+
+?>
         <div class="section" id="delete-student">
             <h2>Delete Student</h2>
             <form action="" method="POST">
